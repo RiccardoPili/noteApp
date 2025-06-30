@@ -30,18 +30,18 @@
       >
         <div class="bg-white p-8 rounded shadow-lg w-200">
           <h2 class="text-lg font-bold mb-4">Add a new Note</h2>
-          <input
-            id="new-note-title-input"
-            type="text"
-            placeholder="Title"
-            class="border w-full p-2 rounded mb-4"
-          />
           <select
             id="new-note-category-select"
             class="border w-full p-2 rounded mb-4 appearance-none"
           >
             <!-- Le opzioni verranno popolate via JS -->
           </select>
+          <input
+            id="new-note-title-input"
+            type="text"
+            placeholder="Title"
+            class="border w-full p-2 rounded mb-4"
+          />
           <textarea
             id="new-note-content-input"
             placeholder="Note content..."
@@ -73,6 +73,12 @@
           class="mt-4 px-4 py-2 bg-black text-white rounded font-semibold w-full hover:bg-orange-500"
         >
           Add a New Category
+        </button>
+        <button
+          id="show-all-notes"
+          class="mt-2 px-4 py-2 bg-gray-100 text-gray-500 rounded font-semibold w-full hover:bg-gray-200 hover:text-gray-800"
+        >
+          Show All Notes
         </button>
         <ul id="list-of-categories" class="mt-4"></ul>
       </aside>

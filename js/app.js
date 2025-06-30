@@ -17,13 +17,16 @@ const coloriDisponibili = [
 function mostraCategorie() {
   const ul = document.getElementById("list-of-categories");
   ul.innerHTML = "";
-  categorie.forEach((cat) => {
+  categorie.forEach((cat, idx) => {
     const li = document.createElement("li");
     li.className =
-      "flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md";
+      "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-md";
     li.innerHTML = `
       <span class="w-3 h-3 ${cat.colore} rounded-full mr-2"></span>
-      ${cat.nome}
+      <span>${cat.nome}</span>
+      <button class="ml-auto p-1 rounded hover:bg-gray-200" data-more-idx="${idx}" title="Azioni categoria">
+        <img src="assets/edit-icon.svg" alt="Azioni categoria" class="w-5 h-5" />
+      </button>
     `;
     ul.appendChild(li);
   });
@@ -34,13 +37,21 @@ function mostraNote() {
   container.innerHTML = "";
 
   note.forEach((nota, idx) => {
+    const cat = categorie.find((c) => c.nome === nota.categoria);
+    let coloreNota = "bg-yellow-100";
+    if (cat && cat.colore) {
+      coloreNota = cat.colore.replace("-300", "-100");
+    }
+
     const div = document.createElement("div");
-    div.className = "bg-yellow-100 p-4 rounded-lg shadow hover:shadow-lg mb-2";
+    div.className = `${coloreNota} p-4 rounded-lg shadow hover:shadow-lg mb-2  h-60 overflow-hidden flex flex-col`;
     div.innerHTML = `
-      <h3 class="font-semibold">${nota.titolo}</h3>
+      <h3 class="font-semibold truncate">${nota.titolo}</h3>
       <p class="text-sm text-gray-500 mb-2">${nota.categoria}</p>
-      <p>${nota.contenuto}</p>
-      <a href="#" class="text-red-500 hover:underline mt-2" data-idx="${idx}">Delete</a>
+      <p class="overflow-hidden text-ellipsis line-clamp-5">${nota.contenuto}</p>
+      <div class="flex justify-end mt-auto">
+        <a href="#" class="text-red-500 hover:underline" data-idx="${idx}">Delete</a>
+      </div>
     `;
     container.appendChild(div);
   });

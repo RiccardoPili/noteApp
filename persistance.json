@@ -7,6 +7,22 @@
     {
       "nome": "LAVORO",
       "colore": "bg-indigo-300"
+    },
+    {
+      "nome": "Viaggi",
+      "colore": "bg-green-300"
+    },
+    {
+      "nome": "Calcio",
+      "colore": "bg-blue-300"
+    },
+    {
+      "nome": "Coding",
+      "colore": "bg-blue-300"
+    },
+    {
+      "nome": "AAA",
+      "colore": "bg-orange-300"
     }
   ],
   "note": [
@@ -19,6 +35,21 @@
       "titolo": "Nota 2",
       "categoria": "LAVORO",
       "contenuto": "Testo della nota"
+    },
+    {
+      "titolo": "Prenotare biglietti aereo",
+      "categoria": "Viaggi",
+      "contenuto": "Testo di prova"
+    },
+    {
+      "titolo": "Nota di prova",
+      "categoria": "AAA",
+      "contenuto": "prova"
+    },
+    {
+      "titolo": "Prova nota testo lungo",
+      "categoria": "AAA",
+      "contenuto": "Note content, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, mi auctor accumsan ultrices, lorem purus semper lacus, nec dapibus nunc nunc id mi. Proin auctor pretium risus, non varius...\n\nNote content, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, mi auctor accumsan ultrices, lorem purus semper lacus, nec dapibus nunc nunc id mi. Proin auctor pretium risus, non varius..."
     }
   ]
 }
