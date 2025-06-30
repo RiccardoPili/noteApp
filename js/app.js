@@ -24,8 +24,8 @@ function mostraCategorie() {
     li.innerHTML = `
       <span class="w-3 h-3 ${cat.colore} rounded-full mr-2"></span>
       <span>${cat.nome}</span>
-      <button class="ml-auto p-1 rounded hover:bg-gray-200" data-more-idx="${idx}" title="Azioni categoria">
-        <img src="assets/edit-icon.svg" alt="Azioni categoria" class="w-5 h-5" />
+      <button class="ml-auto p-1 rounded hover:bg-gray-200" data-more-idx="${idx}" title="Modifica categoria">
+        <img src="assets/edit-icon.svg" alt="Modifica categoria" class="w-5 h-5" />
       </button>
     `;
     ul.appendChild(li);
@@ -71,7 +71,9 @@ function mostraNote() {
 function aggiornaCategorieSelect() {
   const select = document.getElementById("new-note-category-select");
   if (!select) return;
-  select.innerHTML = "";
+
+  select.innerHTML = `<option value="" disabled selected hidden">Select Category</option>`;
+
   categorie.forEach((cat) => {
     const option = document.createElement("option");
     option.value = cat.nome;
@@ -100,11 +102,86 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmNewNoteBtn = document.getElementById("confirm-new-note-btn");
     const newCatInput = document.getElementById("category-name-input");
 
+    // --- Nuovi elementi per edit categoria ---
+    const popupEditCategory = document.getElementById("popup-edit-category");
+    const editCatInput = document.getElementById("edit-category-name-input");
+    const cancelEditCatBtn = document.getElementById(
+      "cancel-edit-category-btn"
+    );
+    const confirmEditCatBtn = document.getElementById(
+      "confirm-edit-category-btn"
+    );
+    const deleteCatBtn = document.getElementById("delete-category-btn");
+    let editingCatIdx = null;
+
     addCatBtn.addEventListener("click", () => {
       popupNewNote.classList.add("hidden");
       popupNewCategory.classList.remove("hidden");
       newCatInput.value = "";
       newCatInput.focus();
+    });
+
+    // Gestione apertura popup edit categoria
+    document
+      .getElementById("list-of-categories")
+      .addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-more-idx]");
+        if (btn) {
+          editingCatIdx = parseInt(btn.getAttribute("data-more-idx"));
+          editCatInput.value = categorie[editingCatIdx].nome;
+          popupEditCategory.classList.remove("hidden");
+          editCatInput.focus();
+        }
+      });
+
+    // Salva modifica categoria
+    confirmEditCatBtn.addEventListener("click", () => {
+      const nuovoNome = editCatInput.value.trim();
+      if (!nuovoNome) return;
+      if (nuovoNome.length > 16) {
+        alert("Category Name is too long");
+        return;
+      }
+      // Aggiorna nome categoria
+      const oldNome = categorie[editingCatIdx].nome;
+      categorie[editingCatIdx].nome = nuovoNome;
+      // Aggiorna tutte le note associate
+      note.forEach((n) => {
+        if (n.categoria === oldNome) n.categoria = nuovoNome;
+      });
+      mostraCategorie();
+      mostraNote();
+      aggiornaCategorieSelect();
+      saveData(categorie, note);
+      popupEditCategory.classList.add("hidden");
+    });
+
+    // Cancella categoria e note associate
+    deleteCatBtn.addEventListener("click", () => {
+      if (
+        !confirm(
+          "Are you sure you want to delete this category and all its notes?"
+        )
+      )
+        return;
+      const nomeDaEliminare = categorie[editingCatIdx].nome;
+      categorie.splice(editingCatIdx, 1);
+      note = note.filter((n) => n.categoria !== nomeDaEliminare);
+      mostraCategorie();
+      mostraNote();
+      aggiornaCategorieSelect();
+      saveData(categorie, note);
+      popupEditCategory.classList.add("hidden");
+    });
+
+    // Annulla modifica
+    cancelEditCatBtn.addEventListener("click", () => {
+      popupEditCategory.classList.add("hidden");
+    });
+
+    // Chiudi popup edit con ESC
+    editCatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") confirmEditCatBtn.click();
     });
 
     addNoteBtn.addEventListener("click", () => {
@@ -128,6 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     confirmBtn.addEventListener("click", () => {
       const nome = newCatInput.value.trim();
+      if (!nome) return;
+      if (nome.length > 16) {
+        alert("Category Name is too long");
+        return;
+      }
       if (nome) {
         // Colore casuale
         const colore =

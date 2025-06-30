@@ -25,4 +25,6 @@ app.post("/data", (req, res) => {
   });
 });
 
+// Route per le note di una singola categoria
+
 app.listen(3000, () => console.log("Server avviato su http://localhost:3000"));
