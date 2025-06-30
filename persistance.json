@@ -1,0 +1,24 @@
+{
+  "categorie": [
+    {
+      "nome": "UNI",
+      "colore": "bg-blue-300"
+    },
+    {
+      "nome": "LAVORO",
+      "colore": "bg-indigo-300"
+    }
+  ],
+  "note": [
+    {
+      "titolo": "Studiare per Algoritmi",
+      "categoria": "UNI",
+      "contenuto": "Studiare i capitolo 4 e 5 del libro"
+    },
+    {
+      "titolo": "Nota 2",
+      "categoria": "LAVORO",
+      "contenuto": "Testo della nota"
+    }
+  ]
+}
