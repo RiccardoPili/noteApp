@@ -26,5 +26,14 @@ app.post("/data", (req, res) => {
 });
 
 // Route per le note di una singola categoria
+app.get("/data/:categoria", (req, res) => {
+  fs.readFile(DATA_PATH, "utf8", (err, data) => {
+    if (err) return res.json({ note: [] });
+    const { note } = JSON.parse(data);
+    const categoria = req.params.categoria;
+    const filtered = note.filter((n) => n.categoria === categoria);
+    res.json({ note: filtered });
+  });
+});
 
 app.listen(3000, () => console.log("Server avviato su http://localhost:3000"));

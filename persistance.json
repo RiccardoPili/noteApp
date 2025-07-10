@@ -28,6 +28,11 @@
       "titolo": "Prova nota testo lungo",
       "categoria": "ABC",
       "contenuto": "Note content, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, mi auctor accumsan ultrices, lorem purus semper lacus, nec dapibus nunc nunc id mi. Proin auctor pretium risus, non varius...\n\nNote content, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, mi auctor accumsan ultrices, lorem purus semper lacus, nec dapibus nunc nunc id mi. Proin auctor pretium risus, non varius..."
+    },
+    {
+      "titolo": "prova",
+      "categoria": "LAVORO",
+      "contenuto": "ciao"
     }
   ]
 }
